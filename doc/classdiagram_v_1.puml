@@ -1,0 +1,34 @@
+@startuml
+
+!pragma layout smetana
+
+Class Gauge{
+    _private data_
+    ==
+    _Getter_
+    _Setter_
+}
+
+Class Pattern{
+    - Gauge gauge
+    - double ribHeightCM
+    - double sideSeamHeightCM
+    - double totalChestWidthCM
+    - double totalNeckCircumferenceCM
+    ==
+
+
+}
+
+Class Calculator(){
++calculate (Pattern pattern)
+
+}
+
+Pattern *-- Gauge
+
+
+
+
+
+@enduml
