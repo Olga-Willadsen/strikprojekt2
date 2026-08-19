@@ -26,7 +26,8 @@ public class Main {
         String URL="jdbc:sqlite:data/knitting.db";
         DBConnector dbConnector= new DBConnector(URL);
         GaugeDAO gaugeDAO= new GaugeDAO(dbConnector);
-        HttpResponse<String> response=null;
+        RavelryClient RC = new RavelryClient();
+
 
 //        try {
 //            gaugeDAO.createTable();
@@ -35,36 +36,11 @@ public class Main {
 //            System.out.println(e.getMessage());
 //        }
 
-        try {
-            HttpClient client = HttpClient.newHttpClient();
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.ravelry.com/yarns/search.json?query=drops&page_size=20"))
-                    .header("Authorization", "Basic " + Base64.getEncoder().encodeToString("read-2e8bd4fb6dbaec93dae7ce52f94c8c8f:0dxWJVT6EIhr7wxNghbLyoPKrG4/hOjN3gyudtbj".getBytes()))
-                    .GET()
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            //System.out.println(response.body());
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Gauge g1=new Gauge("test", 5.5, 10.0, 12.0);
 
 
 
-        try {
-            YarnSearchResponse result = gson.fromJson(response.body(), YarnSearchResponse.class);
-            System.out.println(result.getYarns().size());
-            List<Yarn> yarns = result.getYarns();
-            Yarn testResult = yarns.get(0);
-            System.out.println(testResult);
-
-        }catch (NullPointerException n){
-            System.out.println(n.getMessage());
-        }
-
-
+RC.searchByGauge(10, 12);
 
 
 
